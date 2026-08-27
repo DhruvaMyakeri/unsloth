@@ -54,6 +54,7 @@ import { AudioAttachmentAdapter } from "./audio-attachment-adapter";
 import {
   isBinaryPropertyList,
   isBinaryTrackerModule,
+  isCompiledFortranModule,
   isBinaryVobSubSubtitle,
   readTextAttachment,
 } from "./text-attachment-accept";
@@ -353,6 +354,12 @@ class TextAttachmentAdapter implements AttachmentAdapter {
     if (await isBinaryTrackerModule(file)) {
       const reason =
         "Tracker .mod audio files aren't supported as text attachments.";
+      toast.error(reason);
+      throw new Error(reason);
+    }
+    if (await isCompiledFortranModule(file)) {
+      const reason =
+        "Compiled Fortran .mod modules aren't supported as text attachments.";
       toast.error(reason);
       throw new Error(reason);
     }
