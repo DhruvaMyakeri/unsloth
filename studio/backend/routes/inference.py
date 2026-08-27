@@ -13867,7 +13867,6 @@ def _decode_audio_base64(b64: str) -> "np.ndarray":
             waveform, sr = torchaudio.load(tmp_path, num_frames = limit + 1)
         else:
             import torch
-
             samples, sr = _decode_audio_mono(raw)
             waveform = torch.from_numpy(samples).unsqueeze(0)
     finally:
